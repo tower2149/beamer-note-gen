@@ -1,0 +1,32 @@
+#! /usr/bin/python3
+import sys
+
+print("""
+\\documentclass{ltjsreport}
+\\begin{document}
+""")
+# ファイル名を指定してテキストファイルを読み込む
+with open(sys.argv[1], 'r') as file:
+    lines = file.readlines()
+
+# 行を抜き出すフラグ
+extract_flag = False
+extracted_lines = []
+
+# 「note{」が含まれる行と「}」が含まれる行の間の行を抜き出す
+for line in lines:
+    if 'note{' in line:
+        extracted_lines.append("\\hrulefill\n")
+        extract_flag = True
+    elif '}' in line:
+        extract_flag = False
+    elif extract_flag:
+        extracted_lines.append(line)
+extracted_lines.append("\\hrulefill\n")
+
+# 抜き出した行を出力
+for line in extracted_lines:
+    print(line, end='')
+
+print('\\end{document}')
+
