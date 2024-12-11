@@ -16,13 +16,13 @@ extracted_lines = []
 # 「note{」が含まれる行と「}」が含まれる行の間の行を抜き出す
 for line in lines:
     if 'note{' in line:
-        extracted_lines.append("\\hrulefill\n")
+        extracted_lines.append("\n\n\\hrulefill\n\n")
         extract_flag = True
     elif '}' in line:
         extract_flag = False
     elif extract_flag:
         extracted_lines.append(line)
-extracted_lines.append("\\hrulefill\n")
+extracted_lines.append("\n\n\\hrulefill\n\n")
 
 # 抜き出した行を出力
 for line in extracted_lines:
